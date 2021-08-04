@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>스파르타코딩클럽 | 나만의 쇼핑몰 만들기</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+
+        .all {
+            width: 500px;
+            margin: auto;
+        }
+
+        .title {
+            font-size: xxx-large;
+        }
+
+        #rate{
+            color: blue;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function func() {
+                $.ajax({
+                        type: "GET",
+                        url: "http://spartacodingclub.shop/sparta_api/rate",
+                        data: {},
+                        success: function (response) {
+                                let rate = response['rate']
+                                let temp_html = `<span>${rate}</span>`
+                                $('#rate').append(temp_html)
+                        }
+                    }
+                )
+            }
+        )
+    </script>
+</head>
+
+<body>
+<div class="all">
+    <image src="https://thumb.mtstarnews.com/06/2021/04/2021042710040679146_1.jpg/dims/optimize"></image>
+    <div>
+        <p><span class="title">양초를 팝니다</span>가격: 3000원/개</p>
+        <p>양초를 팝니다~ 이 양초를 사면 건강이 어쩌구 몸매가 어쩌구</p>
+        <br>
+        <p id = 'rate'>달러/원 환율 : </p>
+    </div>
+    <h1>주문하기</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주문자 성함</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">수량</span>
+        </div>
+        <select class="form-control">
+            <option disabled selected hidden> ---수량을 선택하세요---</option>
+            <option>1개</option>
+            <option>2개</option>
+            <option>3개</option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주소</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">전화번호</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+</div>
+</body>
+
+</html>
