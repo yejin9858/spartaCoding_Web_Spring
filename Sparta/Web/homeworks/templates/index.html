@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>스파르타코딩클럽 | 나만의 쇼핑몰 만들기</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+
+        .all {
+            width: 500px;
+            margin: auto;
+        }
+
+        .title {
+            font-size: xxx-large;
+        }
+
+        #rate {
+            color: blue;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let nowRate = response[1]['rate'];
+                    $('#rate-box').text(nowRate);
+                }
+            })
+            order_listing();
+        });
+
+        function order_listing() {
+            // 주문목록 보기 API 연결
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    let orders = response['all_orders']
+                    for (let i = 0; i < orders.length; i++) {
+                        let name = orders[i]['name']
+                        let num = orders[i]['num']
+                        let address = orders[i]['address']
+                        let phone = orders[i]['phone']
+
+                        let temp_html = `<tr>
+                                                <th scope="row">${name}</th>
+                                                <td>${num}</td>
+                                                <td>${address}</td>
+                                                <td>${phone}</td>
+                                            </tr>`
+                        $('#order-list').append(temp_html)
+                    }
+                }
+            })
+        }
+
+        function order() {
+            // 주문하기 API 연결
+            let name = $('#name').val()
+            let num = $('#num').val()
+            let address = $('#address').val()
+            let phone = $('#phone').val()
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data: {name_give: name, num_give: num, address_give: address, phone_give: phone},
+                success: function (response) { // 성공하면
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+<div class="all">
+    <div class="warp">
+        <image src="https://thumb.mtstarnews.com/06/2021/04/2021042710040679146_1.jpg/dims/optimize"></image>
+        <div>
+            <p><span class="title">양초를 팝니다</span>가격: 3000원/개</p>
+            <p>양초를 팝니다~ 이 양초를 사면 건강이 어쩌구 몸매가 어쩌구</p>
+            <br>
+            <p id='rate-box'>달러/원 환율 : </p>
+        </div>
+        <h1>주문하기</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">주문자 성함</span>
+            </div>
+            <input type="text" id="name" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">수량</span>
+            </div>
+            <select id="num" class="form-control">
+                <option disabled selected hidden> ---수량을 선택하세요---</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">주소</span>
+            </div>
+            <input type="text" id="address" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">전화번호</span>
+            </div>
+            <input type="text" id="phone" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button onclick="order()" type="button" class="btn btn-primary mybtn">주문하기</button>
+    </div>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+        </tr>
+        </thead>
+        <tbody id = "order-list">
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
