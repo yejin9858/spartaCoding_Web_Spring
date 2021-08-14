@@ -20,7 +20,7 @@ public class Week02Application {
         SpringApplication.run(Week02Application.class, args);
     }
 
-    @Bean
+    /*@Bean
     public CommandLineRunner demo(CourseRepository courseRepository, CourseService courseService) {
         return (args) -> {
             courseRepository.save(new Course("프론트엔드의 꽃, 리액트", "임민영"));
@@ -44,5 +44,5 @@ public class Week02Application {
                 System.out.println(course.getTutor());
             }
         };
-    }
+    }*/
 }
