@@ -1,16 +1,15 @@
 package com.sparta.week02.domain;
 
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class CourseRequestDto {
 
-    private final String title;
-    private final String tutor;
+    private String title;
+    private String tutor;
 
 }

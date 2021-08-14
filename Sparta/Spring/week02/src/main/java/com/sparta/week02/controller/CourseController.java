@@ -5,10 +5,7 @@ import com.sparta.week02.domain.CourseRepository;
 import com.sparta.week02.domain.CourseRequestDto;
 import com.sparta.week02.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,18 @@ public class CourseController {
     @GetMapping("/api/courses")//get방식으로 데이터 조회 요청이 오면 아래 메소드를 실행해라
     public List<Course> getCourses() {
         return courseRepository.findAll();
+    }
+
+    @PutMapping("/api/courses/{id}")
+    public Long updateCourse(@PathVariable Long id, @RequestBody CourseRequestDto requestDto) {
+        //@PathVariable 중괄호 속의 값임을 알려줌
+        return courseService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/api/courses/{id}")
+    public Long deleteCourse(@PathVariable Long id) {
+        //@PathVariable 중괄호 속의 값임을 알려줌
+        courseRepository.deleteById(id);
+        return id;
     }
 }
