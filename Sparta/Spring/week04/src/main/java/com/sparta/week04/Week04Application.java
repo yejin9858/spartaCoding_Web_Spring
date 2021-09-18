@@ -1,8 +1,10 @@
-package sparta.week04;
+package com.sparta.week04;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing // 시간 자동 반영
 @SpringBootApplication
 public class Week04Application {
 
