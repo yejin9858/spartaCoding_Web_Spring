@@ -2,13 +2,11 @@ package com.sparta.week04.controller;
 
 import com.sparta.week04.Service.ProductService;
 import com.sparta.week04.models.Product;
+import com.sparta.week04.models.ProductMypriceRequestDto;
 import com.sparta.week04.models.ProductRepository;
 import com.sparta.week04.models.ProductRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
