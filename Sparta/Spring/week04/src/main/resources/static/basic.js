@@ -176,4 +176,20 @@ function setMyprice() {
      * 5, 성공적으로 등록되었음을 알리는 alert를 띄운다.
      * 6. 창을 새로고침한다. window.location.reload();
      */
+    let myprice = $('#myprice').val();
+    if (myprice == '') {
+        alert('올바른 가격을 입력해주세요');
+        return;
+    }
+    $.ajax({
+        type: "PUT",
+        url: `/api/products/${targetId}`,
+        contentType: "application/json",
+        data: JSON.stringify({myprice: myprice}),
+        success: function (response) {
+            $('#container').removeClass('active');
+            alert('성공적으로 등록되었습니다.');
+            window.location.reload();
+        }
+    })
 }
